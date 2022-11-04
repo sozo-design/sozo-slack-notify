@@ -1,4 +1,4 @@
-name: 'SOZO Slack Notify',
+name: 'SOZO Slack Notify'
 description: 'Send messages to your slack channel with this GitHub Action.'
 inputs:
   channel:
