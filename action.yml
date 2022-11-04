@@ -9,8 +9,8 @@ inputs:
     required: false
   colour:
     description: 'The border colour of the Slack message.'
-    required: true
-    default: '#'
+    required: false
+    default: '#dddddd'
   message_id:
     description: 'The ID of an existing message to update.'
     required: false

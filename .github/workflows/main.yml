@@ -1,0 +1,50 @@
+on: [push]
+
+jobs:
+  hello_world_job:
+    runs-on: ubuntu-latest
+    name: Testing of Messages
+    steps:
+      # Minimum requirement message
+      - name: Basic Message
+        id: message
+        uses: sozo-design/sozo-slack-notify@master
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SOZO_SLACK_NOTIFY_BOT_TOKEN }}
+        with:
+          channel: sozo-slack-notify
+
+      # Message Colour testing
+      - name: Danger Level Message
+        uses: sozo-design/sozo-slack-notify@master
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SOZO_SLACK_NOTIFY_BOT_TOKEN }}
+        with:
+          channel: sozo-slack-notify
+          colour: danger
+
+      - name: Warning Level Message
+        uses: sozo-design/sozo-slack-notify@master
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SOZO_SLACK_NOTIFY_BOT_TOKEN }}
+        with:
+          channel: sozo-slack-notify
+          colour: warning
+
+      - name: Good Level message
+        uses: sozo-design/sozo-slack-notify@master
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SOZO_SLACK_NOTIFY_BOT_TOKEN }}
+        with:
+          channel: sozo-slack-notify
+          colour: good
+
+      # Message output testing
+      - name: With message
+        uses: sozo-design/sozo-slack-notify@master
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SOZO_SLACK_NOTIFY_BOT_TOKEN }}
+        with:
+          channel: sozo-slack-notify
+          colour: #211733
+          message: This message should include some additional text
