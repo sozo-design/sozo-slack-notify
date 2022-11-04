@@ -1,0 +1,22 @@
+name: 'SOZO Slack Notify',
+description: 'Send messages to your slack channel with this GitHub Action.'
+inputs:
+  channel:
+    description: 'The Slack channel name (Required).'
+    required: true
+  message:
+    description: 'The main Slack message in attachment.'
+    required: false
+  colour:
+    description: 'The border colour of the Slack message.'
+    required: true
+    default: '#'
+  message_id:
+    description: 'The ID of an existing message to update.'
+    required: false
+outputs:
+  message_id:
+    description: 'The Slack message ID based on the timestamp'
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
