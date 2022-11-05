@@ -28,7 +28,12 @@ const { buildSlackBlocks, formatChannelName } = require('./src/utils');
 
         const args = {
             channel: channelId,
-            blocks
+            blocks,
+            color: colour,
+            text: message,
+            footer_icon: 'https://github.githubassets.com/favicon.ico',
+            footer: `<https://github.com/${owner}/${repo} | ${owner}/${repo}>`,
+            ts: Math.floor(Date.now() / 1000),
         };
 
         if (messageId) {

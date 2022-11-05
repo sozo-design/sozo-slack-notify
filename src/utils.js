@@ -34,33 +34,24 @@ function buildSlackBlocks({ message, colour, github }) {
     }
         
     return [
+        messageLink,
         {
-            color: colour,
-            text: message,
-            blocks: [
-                messageLink,
+            type: 'Section',
+            fields: [
                 {
-                    type: 'Section',
-                    fields: [
-                        {
-                            type: "mrkdwn",
-                            text: "*Repo*\n`<https://github.com/${owner}/${repo} | ${owner}/${repo}>`"
-                        },
-                        {
-                            type: "mrkdwn",
-                            text: "*WorkFlow*\n`<https://github.com/${owner}/${repo}/actions/runs/${runId} | ${workflow}>`"
-                        },
-                        referenceLink,
-                        {
-                            type: "mrkdwn",
-                            text: "*Event*\n`${event}`"
-                        },
-                    ]
+                    type: "mrkdwn",
+                    text: "*Repo*\n`<https://github.com/${owner}/${repo} | ${owner}/${repo}>`"
                 },
-            ],
-            footer_icon: 'https://github.githubassets.com/favicon.ico',
-            footer: `<https://github.com/${owner}/${repo} | ${owner}/${repo}>`,
-            ts: Math.floor(Date.now() / 1000),
+                {
+                    type: "mrkdwn",
+                    text: "*WorkFlow*\n`<https://github.com/${owner}/${repo}/actions/runs/${runId} | ${workflow}>`"
+                },
+                referenceLink,
+                {
+                    type: "mrkdwn",
+                    text: "*Event*\n`${event}`"
+                },
+            ]
         },
     ];
 }
