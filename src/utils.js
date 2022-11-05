@@ -7,7 +7,7 @@ function buildSlackBlocks({ message, colour, github }) {
     const branch = event === 'pull_request' ? payload.pull_request.head.ref : ref.replace('refs/head', '');
     const sha = event === 'pull_request' ? payload.pull_request.head.sha : github.context.sha;
     const runId = parseInt(process.env.GITHUB_RUN_ID, 10);
-    let messageLink;
+    let messageLink = '';
 
     const referenceLink = 
         event === 'pull_request'

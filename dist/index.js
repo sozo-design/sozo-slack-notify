@@ -17964,7 +17964,7 @@ function buildSlackBlocks({ message, colour, github }) {
     const branch = event === 'pull_request' ? payload.pull_request.head.ref : ref.replace('refs/head', '');
     const sha = event === 'pull_request' ? payload.pull_request.head.sha : github.context.sha;
     const runId = parseInt(process.env.GITHUB_RUN_ID, 10);
-    let messageLink;
+    let messageLink = '';
 
     const referenceLink = 
         event === 'pull_request'
@@ -18246,6 +18246,7 @@ const { buildSlackBlocks, formatChannelName } = __nccwpck_require__(9337);
         const token = process.env.SLACK_BOT_TOKEN;
         const slack = new WebClient(token);
         const apiMethod = Boolean(messageId) ? 'update' : 'postMessage';
+        const { owner, repo } = github.context.repo;
 
         if (!channel) {
             core.setFailed(`Channel is a required field`);

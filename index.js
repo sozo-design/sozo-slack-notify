@@ -12,6 +12,7 @@ const { buildSlackBlocks, formatChannelName } = require('./src/utils');
         const token = process.env.SLACK_BOT_TOKEN;
         const slack = new WebClient(token);
         const apiMethod = Boolean(messageId) ? 'update' : 'postMessage';
+        const { owner, repo } = github.context.repo;
 
         if (!channel) {
             core.setFailed(`Channel is a required field`);
