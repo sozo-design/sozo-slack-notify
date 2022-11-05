@@ -1,7 +1,7 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 const { WebClient } = require('@slack/web-api');
-const { buildSlackAttachments, formatChannelName } = require('./src/utils');
+const { buildSlackBlocks, formatChannelName } = require('./src/utils');
 
 (async() => {
     try {
@@ -22,12 +22,11 @@ const { buildSlackAttachments, formatChannelName } = require('./src/utils');
             core.setFailed(`Slack channel ${channel} could not be found`);
         }
 
-        const attachments = buildSlackAttachments({ message, colour, github })
+        const blocks = buildSlackBlocks({ message, colour, github })
 
         const args = {
             channel: channelId,
-            attachments,
-            text: message
+            blocks
         };
 
         if (messageId) {

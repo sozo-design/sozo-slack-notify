@@ -1,6 +1,6 @@
 const { context } = require('@actions/github');
 
-function buildSlackAttachments({ message, colour, github }) {
+function buildSlackBlocks({ message, colour, github }) {
     const { payload, ref, workflow, eventName } = github.context;
     const { owner, repo } = context.repo;
     const event = eventName;
@@ -12,45 +12,51 @@ function buildSlackAttachments({ message, colour, github }) {
     const referenceLink = 
         event === 'pull_request'
             ? {
-                title: 'Pull Request',
-                value: `<${payload.pull_request.html_uri} | ${payload.pull_request.title}>`,
-                short: true
+                type: 'mrkdwn',
+                text: '*Pull Request*\n`<${payload.pull_request.html_uri} | ${payload.pull_request.title}>`',
             }
             : {
-                title: 'Branch',
-                value: `<https://github.com/${owner}/${repo}/commit/${sha} | ${branch}>`,
-                short: true
+                type: 'mrkdwn',
+                text: '*Branch* `<https://github.com/${owner}/${repo}/commit/${sha} | ${branch}>`',
             };
     
     if (message) {
         messageLink = {
-            title: 'Message',
-            value: message,
-            short: false,
-        }
+            "type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": message
+			},
+        },
+		{
+			"type": "divider"
+		}
     }
         
     return [
         {
             color: colour,
-            fields: [
+            text: message,
+            blocks: [
+                messageLink,
                 {
-                    title: 'Repo',
-                    value: `<https://github.com/${owner}/${repo} | ${owner}/${repo}>`,
-                    short: true
+                    type: 'Section',
+                    fields: [
+                        {
+                            type: "mrkdwn",
+                            text: "*Repo*\n`<https://github.com/${owner}/${repo} | ${owner}/${repo}>`"
+                        },
+                        {
+                            type: "mrkdwn",
+                            text: "*WorkFlow*\n`<https://github.com/${owner}/${repo}/actions/runs/${runId} | ${workflow}>`"
+                        },
+                        referenceLink,
+                        {
+                            type: "mrkdwn",
+                            text: "*Event*\n`${event}`"
+                        },
+                    ]
                 },
-                {
-                    title: 'WorkFlow',
-                    value: `<https://github.com/${owner}/${repo}/actions/runs/${runId} | ${workflow}>`,
-                    short: true,
-                },
-                referenceLink,
-                {
-                    title: 'Event',
-                    value: event,
-                    short: true,
-                },
-                messageLink
             ],
             footer_icon: 'https://github.githubassets.com/favicon.ico',
             footer: `<https://github.com/${owner}/${repo} | ${owner}/${repo}>`,
@@ -59,7 +65,7 @@ function buildSlackAttachments({ message, colour, github }) {
     ];
 }
 
-module.exports.buildSlackAttachments = buildSlackAttachments;
+module.exports.buildSlackBlocks = buildSlackBlocks;
 
 function formatChannelName(channel) {
     return channel.replace(/[#@]/g, '');
