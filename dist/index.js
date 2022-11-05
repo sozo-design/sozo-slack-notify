@@ -18282,7 +18282,7 @@ async function lookupChannelId({ slack, channel }) {
     let result;
     const formattedChannel = formatChannelName(channel);
 
-    for await (const page of slack.paginate('conversation.list', { types: 'public_channel, private_channel' })) {
+    for await (const page of slack.paginate('conversations.list', { types: 'public_channel, private_channel' })) {
         const match = page.channels.find(c => c.name === formattedChannel);
         if (match) {
             result = match.id;
