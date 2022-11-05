@@ -23,6 +23,7 @@ const { buildSlackBlocks, formatChannelName } = require('./src/utils');
         }
 
         const blocks = buildSlackBlocks({ message, colour, github })
+        console.log(`The blocks payload: ${blocks}`);
 
         const args = {
             channel: channelId,
@@ -33,6 +34,7 @@ const { buildSlackBlocks, formatChannelName } = require('./src/utils');
             args.ts = messageId;
         }
 
+        console.log(`The full payload: ${args}`);
         const response = await slack.chat[apiMethod](args);
 
         core.setOutput('message_id', response.ts);

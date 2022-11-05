@@ -18266,6 +18266,7 @@ const { buildSlackBlocks, formatChannelName } = __nccwpck_require__(9337);
         }
 
         const blocks = buildSlackBlocks({ message, colour, github })
+        console.log(`The blocks payload: ${blocks}`);
 
         const args = {
             channel: channelId,
@@ -18276,6 +18277,7 @@ const { buildSlackBlocks, formatChannelName } = __nccwpck_require__(9337);
             args.ts = messageId;
         }
 
+        console.log(`The full payload: ${args}`);
         const response = await slack.chat[apiMethod](args);
 
         core.setOutput('message_id', response.ts);
