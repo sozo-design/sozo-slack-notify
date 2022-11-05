@@ -32,7 +32,7 @@ function buildSlackAttachments({ message, colour, github }) {
         
     return [
         {
-            colour,
+            color: colour,
             fields: [
                 {
                     title: 'Repo',

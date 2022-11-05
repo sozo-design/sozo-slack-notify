@@ -26,7 +26,8 @@ const { buildSlackAttachments, formatChannelName } = require('./src/utils');
 
         const args = {
             channel: channelId,
-            attachments
+            attachments,
+            text: message
         };
 
         if (messageId) {

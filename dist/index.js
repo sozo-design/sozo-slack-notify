@@ -17989,7 +17989,7 @@ function buildSlackAttachments({ message, colour, github }) {
         
     return [
         {
-            colour,
+            color: colour,
             fields: [
                 {
                     title: 'Repo',
@@ -18263,7 +18263,8 @@ const { buildSlackAttachments, formatChannelName } = __nccwpck_require__(9337);
 
         const args = {
             channel: channelId,
-            attachments
+            attachments,
+            text: message
         };
 
         if (messageId) {
